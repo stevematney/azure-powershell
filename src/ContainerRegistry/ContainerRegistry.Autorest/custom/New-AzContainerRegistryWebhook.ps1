@@ -67,7 +67,6 @@ param(
     # The value must be an UUID.
     ${SubscriptionId},
 
-    [Parameter(Mandatory)]
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Category('Body')]
     [System.String]
     # The location of the webhook.
@@ -191,6 +190,31 @@ process {
         $null = $PSBoundParameters.Add("RegistryName", $RegistryName)
         $null = $PSBoundParameters.Add("ResourceGroupName", $ResourceGroupName)
     } 
+    if (!$PSBoundParameters.ContainsKey('Location')){
+        $param = @{}
+        $PSBoundParameters.GetEnumerator() | ForEach-Object { $param.Add($_.Key, $_.Value) }
+        $paramsToRemove = @(
+            "Name",
+            "Registry",
+            "Location",
+            "Action",
+            "CustomHeader",
+            "Scope",
+            "ServiceUri",
+            "Status",
+            "Tag"
+        )
+        foreach ($paramName in $paramsToRemove)
+        {
+            if ($param.ContainsKey($paramName))
+            {
+                $param.Remove($paramName)  | Out-Null
+            }
+        }
+        $Registry = Az.ContainerRegistry.internal\Get-AzContainerRegistry @param
+        $Location = $Registry.Location
+        $null = $PSBoundParameters.Add("Location", $Location)
+    }
     . Az.ContainerRegistry.internal\New-AzContainerRegistryWebhook @PSBoundParameters
 }
 

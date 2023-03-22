@@ -159,7 +159,7 @@ param(
 
 process {
     if (!$PSBoundParameters.ContainsKey('Name')){
-        $Name = $Location.Replace(" ", string.Empty).ToLower();
+        $Name = $Location.Replace(" ", "").ToLower();
         $null = $PSBoundParameters.Add("Name", $Name)
     }
     if ($PSBoundParameters.ContainsKey('Registry')){
@@ -170,6 +170,10 @@ process {
         $null = $PSBoundParameters.Add("RegistryName", $RegistryName)
         $null = $PSBoundParameters.Add("ResourceGroupName", $ResourceGroupName)
     } 
+    if (!$PSBoundParameters.ContainsKey('Name')){
+        $Name = $Location.Replace(" ", "").ToLower();
+        $null = $PSBoundParameters.Add("Name", $Name)
+    }
     . Az.ContainerRegistry.internal\New-AzContainerRegistryReplication @PSBoundParameters
 }
  

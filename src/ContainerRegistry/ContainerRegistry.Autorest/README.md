@@ -250,4 +250,8 @@ directive:
 - where:
     verb: Update
     subject: RegistryCredential
-  hide: true  
+  hide: true
+- where:
+    verb: Get
+    subject: Registry
+  hide: true
