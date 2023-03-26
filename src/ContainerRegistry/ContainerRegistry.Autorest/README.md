@@ -161,7 +161,6 @@ directive:
     - RegistryName
     - ResourceName
     - ContainerRegistryName
-
 - where:
     subject: Replication
     parameter-name: Location
@@ -174,6 +173,41 @@ directive:
     alias: 
     - ReplicationName
     - ResourceName
+- where:
+    verb: Update
+    subject: RegistryCredential
+    parameter-name: Name
+  set:
+    parameter-name: PasswordName
+- where:
+    verb: Update
+    subject: RegistryCredential
+    parameter-name: RegistryName
+  set:
+    alias: 
+    - ContainerRegistryName
+    - Name
+    - ResourceName
+- where:
+    verb: Import
+    subject: RegistryImage
+    parameter-name: CredentialsPassword
+  set:
+    parameter-name: Password
+- where:
+    verb: Import
+    subject: RegistryImage
+    parameter-name: CredentialsUsername
+  set:
+    parameter-name: Username
+- where:
+    verb: Import
+    subject: RegistryImage
+    parameter-name: SourceResourceId
+  set:
+    alias: SourceRegistryResourceId
+
+#Format
 - where:
     model-name: Webhook
   set:

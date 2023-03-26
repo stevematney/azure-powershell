@@ -160,8 +160,11 @@ process {
         $null = $PSBoundParameters.Remove('Registry')
         $RegistryName = $Registry.Name
         $ResourceGroupName = $Registry.ResourceGroupName
+        $null = $PSBoundParameters.Add("RegistryName", $RegistryName)
+        $null = $PSBoundParameters.Add("ResourceGroupName", $ResourceGroupName)
+
     }
-    . Az.ContainerRegistry.internal\Get-AzContainerRegistryReplication -Name $RegistryName -ResourceGroupName $ResourceGroupName @PSBoundParameters
+    . Az.ContainerRegistry.internal\Get-AzContainerRegistryReplication @PSBoundParameters
 }
 
 }

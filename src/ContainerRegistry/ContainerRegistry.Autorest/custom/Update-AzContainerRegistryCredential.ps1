@@ -68,6 +68,7 @@ function Update-AzContainerRegistryCredential {
 param(
     [Parameter(ParameterSetName='Regenerate', Mandatory)]
     [Parameter(ParameterSetName='RegenerateExpanded', Mandatory)]
+    [Alias('ContainerRegistryName', 'Name', 'ResourceName')]
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Category('Path')]
     [System.String]
     # The name of the container registry.
@@ -110,7 +111,7 @@ param(
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Category('Body')]
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Support.PasswordName]
     # Specifies name of the password which should be regenerated -- password or password2.
-    ${Name},
+    ${PasswordName},
 
     [Parameter(ParameterSetName='RegenerateByRegistry', Mandatory, ValueFromPipeline)]
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Category('Path')]

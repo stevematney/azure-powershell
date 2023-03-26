@@ -73,7 +73,7 @@ param(
     # This cannot be changed after the resource is created.
     ${Location},
 
-    [Parameter()]
+    [Parameter(Mandatory)]
     [AllowEmptyCollection()]
     [ArgumentCompleter([Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Support.WebhookAction])]
     [Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Category('Body')]
@@ -215,7 +215,9 @@ process {
         $Location = $Registry.Location
         $null = $PSBoundParameters.Add("Location", $Location)
     }
-    . Az.ContainerRegistry.internal\New-AzContainerRegistryWebhook @PSBoundParameters
+    $Action = $PSBoundParameters["Action"]
+    $null = $PSBoundParameters.Remove('Action')
+    . Az.ContainerRegistry.internal\New-AzContainerRegistryWebhook -Action $Action @PSBoundParameters
 }
 
 }
