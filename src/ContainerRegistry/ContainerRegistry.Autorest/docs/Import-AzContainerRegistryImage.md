@@ -15,10 +15,10 @@ Copies an image to this container registry from the specified container registry
 ### ImportExpanded (Default)
 ```
 Import-AzContainerRegistryImage -RegistryName <String> -ResourceGroupName <String> -SourceImage <String>
- [-SubscriptionId <String>] [-CredentialsPassword <String>] [-CredentialsUsername <String>]
- [-Mode <ImportMode>] [-SourceRegistryUri <String>] [-SourceResourceId <String>] [-TargetTag <String[]>]
- [-UntaggedTargetRepository <String[]>] [-DefaultProfile <PSObject>] [-AsJob] [-NoWait] [-PassThru] [-Confirm]
- [-WhatIf] [<CommonParameters>]
+ [-SubscriptionId <String>] [-Mode <ImportMode>] [-Password <String>] [-SourceRegistryUri <String>]
+ [-SourceResourceId <String>] [-TargetTag <String[]>] [-UntaggedTargetRepository <String[]>]
+ [-Username <String>] [-DefaultProfile <PSObject>] [-AsJob] [-NoWait] [-PassThru] [-Confirm] [-WhatIf]
+ [<CommonParameters>]
 ```
 
 ### Import
@@ -53,36 +53,6 @@ Run the command as a job
 ```yaml
 Type: System.Management.Automation.SwitchParameter
 Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -CredentialsPassword
-The password used to authenticate with the source registry.
-
-```yaml
-Type: System.String
-Parameter Sets: ImportExpanded
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -CredentialsUsername
-The username to authenticate with the source registry.
-
-```yaml
-Type: System.String
-Parameter Sets: ImportExpanded
 Aliases:
 
 Required: False
@@ -169,6 +139,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Password
+The password used to authenticate with the source registry.
+
+```yaml
+Type: System.String
+Parameter Sets: ImportExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -RegistryName
 The name of the container registry.
 
@@ -238,7 +223,7 @@ The resource identifier of the source Azure Container Registry.
 ```yaml
 Type: System.String
 Parameter Sets: ImportExpanded
-Aliases:
+Aliases: SourceRegistryResourceId
 
 Required: False
 Position: Named
@@ -285,6 +270,21 @@ No tag will be created.
 
 ```yaml
 Type: System.String[]
+Parameter Sets: ImportExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Username
+The username to authenticate with the source registry.
+
+```yaml
+Type: System.String
 Parameter Sets: ImportExpanded
 Aliases:
 

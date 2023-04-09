@@ -14,8 +14,9 @@ Regenerates one of the login credentials for the specified container registry.
 
 ### RegenerateExpanded (Default)
 ```
-Update-AzContainerRegistryCredential -RegistryName <String> -ResourceGroupName <String> -Name <PasswordName>
- [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Update-AzContainerRegistryCredential -RegistryName <String> -ResourceGroupName <String>
+ -PasswordName <PasswordName> [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
+ [<CommonParameters>]
 ```
 
 ### Regenerate
@@ -25,9 +26,15 @@ Update-AzContainerRegistryCredential -RegistryName <String> -ResourceGroupName <
  [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
+### RegenerateByRegistry
+```
+Update-AzContainerRegistryCredential -Registry <IRegistry> [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
+ [<CommonParameters>]
+```
+
 ### RegenerateViaIdentityExpanded
 ```
-Update-AzContainerRegistryCredential -InputObject <IContainerRegistryIdentity> -Name <PasswordName>
+Update-AzContainerRegistryCredential -InputObject <IContainerRegistryIdentity> -PasswordName <PasswordName>
  [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
@@ -91,7 +98,7 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
+### -PasswordName
 Specifies name of the password which should be regenerated -- password or password2.
 
 ```yaml
@@ -122,13 +129,29 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
+### -Registry
+The Registry Object.
+To construct, see NOTES section for REGISTRY properties and create a hash table.
+
+```yaml
+Type: Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegistry
+Parameter Sets: RegenerateByRegistry
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -RegistryName
 The name of the container registry.
 
 ```yaml
 Type: System.String
 Parameter Sets: Regenerate, RegenerateExpanded
-Aliases:
+Aliases: ContainerRegistryName, Name, ResourceName
 
 Required: True
 Position: Named
@@ -207,6 +230,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegenerateCredentialParameters
 
+### Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegistry
+
 ### Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.IContainerRegistryIdentity
 
 ## OUTPUTS
@@ -246,6 +271,46 @@ To create the parameters described below, construct a hash table containing the 
 
 `REGENERATECREDENTIALPARAMETER <IRegenerateCredentialParameters>`: The parameters used to regenerate the login credential.
   - `Name <PasswordName>`: Specifies name of the password which should be regenerated -- password or password2.
+
+`REGISTRY <IRegistry>`: The Registry Object.
+  - `Location <String>`: The location of the resource. This cannot be changed after the resource is created.
+  - `SkuName <SkuName>`: The SKU name of the container registry. Required for registry creation.
+  - `[SystemDataCreatedAt <DateTime?>]`: The timestamp of resource creation (UTC).
+  - `[SystemDataCreatedBy <String>]`: The identity that created the resource.
+  - `[SystemDataCreatedByType <CreatedByType?>]`: The type of identity that created the resource.
+  - `[SystemDataLastModifiedAt <DateTime?>]`: The timestamp of resource modification (UTC).
+  - `[SystemDataLastModifiedBy <String>]`: The identity that last modified the resource.
+  - `[SystemDataLastModifiedByType <LastModifiedByType?>]`: The type of identity that last modified the resource.
+  - `[Tag <IResourceTags>]`: The tags of the resource.
+    - `[(Any) <String>]`: This indicates any property can be added to this object.
+  - `[AdminUserEnabled <Boolean?>]`: The value that indicates whether the admin user is enabled.
+  - `[AnonymousPullEnabled <Boolean?>]`: Enables registry-wide pull from unauthenticated clients.
+  - `[AzureAdAuthenticationAsArmPolicyStatus <AzureAdAuthenticationAsArmPolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[AzureAsyncOperation <String>]`: 
+  - `[DataEndpointEnabled <Boolean?>]`: Enable a single data endpoint per region for serving data.
+  - `[EncryptionStatus <EncryptionStatus?>]`: Indicates whether or not the encryption is enabled for container registry.
+  - `[ExportPolicyStatus <ExportPolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[IdentityPrincipalId <String>]`: The principal ID of resource identity.
+  - `[IdentityTenantId <String>]`: The tenant ID of resource.
+  - `[IdentityType <ResourceIdentityType?>]`: The identity type.
+  - `[IdentityUserAssignedIdentity <IIdentityPropertiesUserAssignedIdentities>]`: The list of user identities associated with the resource. The user identity         dictionary key references will be ARM resource ids in the form:         '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/             providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+    - `[(Any) <IUserIdentityProperties>]`: This indicates any property can be added to this object.
+  - `[KeyVaultPropertyIdentity <String>]`: The client id of the identity which will be used to access key vault.
+  - `[KeyVaultPropertyKeyIdentifier <String>]`: Key vault uri to access the encryption key.
+  - `[NetworkRuleBypassOption <NetworkRuleBypassOptions?>]`: Whether to allow trusted Azure services to access a network restricted registry.
+  - `[NetworkRuleSetDefaultAction <DefaultAction?>]`: The default action of allow or deny when no other rules match.
+  - `[NetworkRuleSetIPRule <IIPRule[]>]`: The IP ACL rules.
+    - `IPAddressOrRange <String>`: Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed.
+    - `[Action <Action?>]`: The action of IP ACL rule.
+  - `[PublicNetworkAccess <PublicNetworkAccess?>]`: Whether or not public network access is allowed for the container registry.
+  - `[QuarantinePolicyStatus <PolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[RetentionPolicyDay <Int32?>]`: The number of days to retain an untagged manifest after which it gets purged.
+  - `[RetentionPolicyStatus <PolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[SoftDeletePolicyRetentionDay <Int32?>]`: The number of days after which a soft-deleted item is permanently deleted.
+  - `[SoftDeletePolicyStatus <PolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[TrustPolicyStatus <PolicyStatus?>]`: The value that indicates whether the policy is enabled or not.
+  - `[TrustPolicyType <TrustPolicyType?>]`: The type of trust policy.
+  - `[ZoneRedundancy <ZoneRedundancy?>]`: Whether or not zone redundancy is enabled for this container registry
 
 ## RELATED LINKS
 

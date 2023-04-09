@@ -8,35 +8,36 @@ schema: 2.0.0
 # Get-AzContainerRegistry
 
 ## SYNOPSIS
-Gets the properties of the specified container registry.
+
 
 ## SYNTAX
 
-### List (Default)
+### List2 (Default)
 ```
-Get-AzContainerRegistry [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>] [<CommonParameters>]
+Get-AzContainerRegistry [-IncludeDetail] [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>]
+ [<CommonParameters>]
 ```
 
 ### Get
 ```
-Get-AzContainerRegistry -Name <String> -ResourceGroupName <String> [-SubscriptionId <String[]>]
- [-DefaultProfile <PSObject>] [<CommonParameters>]
+Get-AzContainerRegistry -Name <String> -ResourceGroupName <String> [-IncludeDetail]
+ [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### GetViaIdentity
 ```
-Get-AzContainerRegistry -InputObject <IContainerRegistryIdentity> [-DefaultProfile <PSObject>]
- [<CommonParameters>]
+Get-AzContainerRegistry -InputObject <IContainerRegistryIdentity> [-IncludeDetail]
+ [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### List1
 ```
-Get-AzContainerRegistry -ResourceGroupName <String> [-SubscriptionId <String[]>] [-DefaultProfile <PSObject>]
- [<CommonParameters>]
+Get-AzContainerRegistry -ResourceGroupName <String> [-IncludeDetail] [-SubscriptionId <String[]>]
+ [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets the properties of the specified container registry.
+
 
 ## EXAMPLES
 
@@ -84,7 +85,7 @@ This command gets all the container registries in the subscription.
 ## PARAMETERS
 
 ### -DefaultProfile
-The credentials, account, tenant, and subscription used for communication with Azure.
+
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -98,8 +99,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -IncludeDetail
+
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -InputObject
-Identity Parameter
 To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
 
 ```yaml
@@ -115,7 +130,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the container registry.
+
 
 ```yaml
 Type: System.String
@@ -130,8 +145,7 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-The name of the resource group.
-The name is case insensitive.
+
 
 ```yaml
 Type: System.String
@@ -146,12 +160,11 @@ Accept wildcard characters: False
 ```
 
 ### -SubscriptionId
-The ID of the target subscription.
-The value must be an UUID.
+
 
 ```yaml
 Type: System.String[]
-Parameter Sets: Get, List, List1
+Parameter Sets: Get, List1, List2
 Aliases:
 
 Required: False
@@ -181,7 +194,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`INPUTOBJECT <IContainerRegistryIdentity>`: Identity Parameter
+`INPUTOBJECT <IContainerRegistryIdentity>`: 
   - `[AgentPoolName <String>]`: The name of the agent pool.
   - `[CacheRuleName <String>]`: The name of the cache rule.
   - `[ConnectedRegistryName <String>]`: The name of the connected registry.

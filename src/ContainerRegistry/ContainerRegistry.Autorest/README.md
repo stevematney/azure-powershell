@@ -88,7 +88,12 @@ directive:
     verb: update
     subject: Replication 
   hide: true
-
+- where:
+    subject: CacheRule
+  hide: true
+- where:
+    subject: RegistryCredentialSet
+  hide: true
 - where:
     verb: Ping
   set: 
