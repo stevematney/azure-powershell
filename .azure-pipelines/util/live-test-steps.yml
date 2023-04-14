@@ -123,7 +123,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: Save live test results to Kusto
-    condition: and(succeededOrFailed(), eq(variables['Build.Reason'], 'Schedule'))
+    #condition: and(succeededOrFailed(), eq(variables['Build.Reason'], 'Schedule'))
     inputs:
       pwsh: true
       targetType: filePath
@@ -135,6 +135,6 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: Publish live test results to pipeline artifact
     inputs:
-      artifact: livetest-os-${{ parameters.vmImage }}-powershell-${{ replace(parameters.psVersion, '*', 'x') }}
+      artifact: livetest-os-${{ parameters.vmImage }}-ps-${{ replace(parameters.psVersion, '*', 'x') }}
       targetPath: $(DataLocation)
     condition: always()

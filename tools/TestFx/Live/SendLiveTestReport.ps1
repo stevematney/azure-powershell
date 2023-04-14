@@ -44,7 +44,6 @@ $errors = Get-KustoQueryData -DatabaseName $DatabaseName -Query $query
 
 if ($errors.Count -gt 0) {
     $reportContent = "<h1>Live Test Error Details</h1><br/>$($errors | ConvertTo-Html -As Table -Fragment)"
-
 }
 else {
     $reportContent = "<h1>All live tests have been executed successfully</h1>"

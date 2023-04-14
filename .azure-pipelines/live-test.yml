@@ -174,11 +174,33 @@ stages:
 - stage: Report
   displayName: Send Report
   dependsOn: Test
-  steps:
-  - task: PowerShell@2
-    displayName:
-    inputs:
-      pwsh: true
-      targetType: filePath
-      filePath: ./tools/TestFx/Live/SendLiveTestReport.ps1
-      arguments: $(KustoServicePrincipalTenantId) $(KustoServicePrincipalId) $(KustoServicePrincipalSecret) $(KustoClusterName) $(KustoClusterRegion) $(LiveTestDatabaseName) $(LiveTestTableName) $(Build.BuildId)
+  jobs:
+  - job:
+    displayName: Send Live Test Status Report
+    steps:
+    - task: PowerShell@2
+      displayName: Install required Azure PowerShell modules
+      inputs:
+        pwsh: true
+        targetType: inline
+        script: |
+          Install-Module -Name Az.Accounts -Scope CurrentUser -Force
+          Install-Module -Name Az.Communication -Scope CurrentUser -Force
+
+    - task: PowerShell@2
+      displayName: Connect Azure with live test service principal
+      inputs:
+        pwsh: true
+        targetType: filePath
+        filePath: ./tools/TestFx/Live/ConnectLiveTestServicePrincipal.ps1
+        arguments: $(LiveTestServicePrincipalSubscriptionId) $(LiveTestServicePrincipalTenantId) $(LiveTestServicePrincipalId) $(LiveTestServicePrincipalSecret)
+        failOnStderr: true
+      retryCountOnTaskFailure: 3
+
+    - task: PowerShell@2
+      displayName: Send live test report
+      inputs:
+        pwsh: true
+        targetType: filePath
+        filePath: ./tools/TestFx/Live/SendLiveTestReport.ps1
+        arguments: $(KustoServicePrincipalTenantId) $(KustoServicePrincipalId) $(KustoServicePrincipalSecret) $(KustoClusterName) $(KustoClusterRegion) $(LiveTestDatabaseName) $(LiveTestTableName) $(Build.BuildId)
