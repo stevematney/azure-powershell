@@ -33,19 +33,13 @@ function setupEnv() {
     $null = $env.Add("rstr1", $rstr1)
     $null = $env.Add("rstr2", $rstr2)
     $null = $env.Add("rstr3", $rstr3)
-    $null = $env.Add("webhook", "webhook001")
-    $null = $env.Add("replication", "replication001")
-    $null = $env.Add("webhook2", "webhook002")
-    $null = $env.Add("replication2", "replication002")
-    $null = $env.Add("webhook3", "webhook003")
-    $null = $env.Add("replication3", "replication003")
+
     # Create the test group
     write-host "start to create test group"
     $resourceGroup = "ContainerTest"
     $null = $env.Add("resourceGroup", $resourceGroup)
     New-AzResourceGroup -Name $resourceGroup -Location "westus"
     New-AzContainerRegistry -RegistryName $env.rstr1 -sku 'Premium' -ResourceGroupName $env.ResourceGroup -Location "westus"
-    New-AzContainerRegistryReplication -RegistryName $rstr1 -ResourceGroupName  $resourceGroup -Name $replication -Location 'east us'
     $envFile = 'env.json'
     if ($TestMode -eq 'live') {
         $envFile = 'localEnv.json'

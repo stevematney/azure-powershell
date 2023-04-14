@@ -29,7 +29,7 @@ Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRe
 https://learn.microsoft.com/powershell/module/az.containerregistry/get-azcontainerregistrycredential
 #>
 function Get-AzContainerRegistryCredential {
-[OutputType([Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegistryListCredentialsResult])]
+[OutputType([Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.PSContainerRegistryCredential])]
 [CmdletBinding(DefaultParameterSetName='List', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
 param(
     [Parameter(ParameterSetName='List', Mandatory)]
@@ -117,6 +117,8 @@ process {
         $null = $PSBoundParameters.Add("RegistryName", $RegistryName)
         $null = $PSBoundParameters.Add("ResourceGroupName", $ResourceGroupName)
     }
-    . Az.ContainerRegistry.internal\Get-AzContainerRegistryCredential @PSBoundParameters
+    $Credential = Az.ContainerRegistry.internal\Get-AzContainerRegistryCredential @PSBoundParameters
+    $Result = New-Object Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.PSContainerRegistryCredential($Credential)
+    return $Result
 }
 }

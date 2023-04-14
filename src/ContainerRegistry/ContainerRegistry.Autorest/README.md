@@ -92,7 +92,7 @@ directive:
     subject: CacheRule
   hide: true
 - where:
-    subject: RegistryCredentialSet
+    subject: (.*)CredentialSet
   hide: true
 - where:
     verb: Ping

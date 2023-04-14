@@ -63,7 +63,7 @@ REGENERATECREDENTIALPARAMETER <IRegenerateCredentialParameters>: The parameters 
 https://learn.microsoft.com/powershell/module/az.containerregistry/update-azcontainerregistrycredential
 #>
 function Update-AzContainerRegistryCredential {
-[OutputType([Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegistryListCredentialsResult])]
+[OutputType([Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.PSContainerRegistryCredential])]
 [CmdletBinding(DefaultParameterSetName='RegenerateExpanded', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
 param(
     [Parameter(ParameterSetName='Regenerate', Mandatory)]
@@ -174,7 +174,9 @@ process {
         $RegistryName = $Registry.Name
         $ResourceGroupName = $Registry.ResourceGroupName
     }
-    . Az.ContainerRegistry.internal\Update-AzContainerRegistryCredential -Name $RegistryName -ResourceGroupName $ResourceGroupName @PSBoundParameters    
+    $Credential = Az.ContainerRegistry.internal\Update-AzContainerRegistryCredential -Name $RegistryName -ResourceGroupName $ResourceGroupName @PSBoundParameters 
+    $Result = New-Object Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.PSContainerRegistryCredential($Credential)
+    return $Result
 }
 
 }
