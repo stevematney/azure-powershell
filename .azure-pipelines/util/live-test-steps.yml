@@ -135,6 +135,6 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: Publish live test results to pipeline artifact
     inputs:
-      artifact: livetest-os-${{ parameters.vmImage }}-powershell-${{ parameters.name }}
+      artifact: livetest-os-${{ parameters.vmImage }}-powershell-${{ replace(parameters.psVersion, '*', 'x') }}
       targetPath: $(DataLocation)
     condition: always()

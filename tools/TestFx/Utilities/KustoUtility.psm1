@@ -11,6 +11,28 @@
 # limitations under the License.
 # ----------------------------------------------------------------------------------
 
+param (
+    [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
+    [guid] $ServicePrincipalTenantId,
+
+    [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
+    [guid] $ServicePrincipalId,
+
+    [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
+    [string] $ServicePrincipalSecret,
+
+    [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
+    [string] $ClusterName,
+
+    [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
+    [string] $ClusterRegion
+)
+
 function InitializeKustoPackages {
     [CmdletBinding()]
     param ()
@@ -51,26 +73,6 @@ function InitializeKustoPackages {
 function Import-KustoDataFromCsv {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [guid] $ServicePrincipalTenantId,
-
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [guid] $ServicePrincipalId,
-
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string] $ServicePrincipalSecret,
-
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string] $ClusterName,
-
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string] $ClusterRegion,
-
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $DatabaseName,
@@ -135,6 +137,36 @@ function IngestDataFromCsv {
             $ingestClient.Dispose()
         }
     }
+}
+
+function Get-KustoQueryData {
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string] $DatabaseName,
+
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Query
+    )
+
+    $queryUri = "https://$ClusterName.$ClusterRegion.kusto.windows.net"
+    $queryBuilder = [Kusto.Data.KustoConnectionStringBuilder]::new($queryUri).WithAadApplicationKeyAuthentication($ServicePrincipalId, $ServicePrincipalSecret, $ServicePrincipalTenantId.ToString())
+    $queryClient = [Kusto.Data.Net.Client.KustoClientFactory]::CreateCslQueryProvider($queryBuilder)
+    $queryResult = $queryClient.ExecuteQuery($DatabaseName, $Query, $null)
+    $results = @()
+    while ($queryResult.Read()) {
+        $resultObj = [PSCustomObject]@{}
+        for ($i = 0; $i -lt $queryResult.FieldCount; $i ++) {
+            $propName = $queryResult.GetName($i)
+            $propValue = $queryResult.GetValue($i)
+
+            $resultObj | Add-Member -NotePropertyName $propName -NotePropertyValue $propValue
+        }
+        $results += $resultObj
+    }
+
+    $results
 }
 
 InitializeKustoPackages
