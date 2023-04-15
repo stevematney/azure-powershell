@@ -29,10 +29,28 @@ param (
 
     [Parameter(Mandatory, Position = 7)]
     [ValidateNotNullOrEmpty()]
-    [string] $BuildId
+    [string] $BuildId,
+
+    [Parameter(Mandatory, Position = 8)]
+    [ValidateNotNullOrEmpty()]
+    [string] $CommunicationServiceName,
+
+    [Parameter(Mandatory, Position = 9)]
+    [ValidateNotNullOrEmpty()]
+    [string] $CommunicationServiceResourceGroup,
+
+    [Parameter(Mandatory, Position = 10)]
+    [ValidateNotNullOrEmpty()]
+    [string] $EmailFrom,
+
+    [Parameter(Mandatory, Position = 11)]
+    [ValidateNotNullOrEmpty()]
+    [string] $EmailTo
 )
 
-$kustoUtil = Join-Path -Path ($PSScriptRoot | Split-Path) -ChildPath "Utilities" | Join-Path -ChildPath "KustoUtility.psd1"
+$utilDir = Join-Path -Path ($PSScriptRoot | Split-Path) -ChildPath "Utilities"
+
+$kustoUtil = $utilDir | Join-Path -ChildPath "KustoUtility.psd1"
 Import-Module $kustoUtil -ArgumentList $ServicePrincipalTenantId, $ServicePrincipalId, $ServicePrincipalSecret, $ClusterName, $ClusterRegion -Force
 
 $query = @"
@@ -42,20 +60,16 @@ $query = @"
 "@
 $errors = Get-KustoQueryData -DatabaseName $DatabaseName -Query $query
 
+$commSvcUtil = $utilDir | Join-Path -ChildPath "CommunicationServiceUtility.psd1"
+Import-Module $commSvcUtil -ArgumentList $CommunicationServiceName, $CommunicationServiceResourceGroup, $EmailFrom -Force
+
+$emailSubject = "Live Test Status Report"
+$emailBody = "<html><body>$reportContent</body></html>"
 if ($errors.Count -gt 0) {
     $reportContent = "<h1>Live Test Error Details</h1><br/>$($errors | ConvertTo-Html -As Table -Fragment)"
 }
 else {
-    $reportContent = "<h1>All live tests have been executed successfully</h1>"
+    $reportContent = "<h1>No live test errors reported. Please check the overall status from Azure pipeline.</h1>"
 }
 
-$conn = Get-AzCommunicationServiceKey -CommunicationServiceName LiveTestCommunicationServices -ResourceGroupName AzurePowerShellLiveTest | Select-Object -ExpandProperty PrimaryConnectionString
-$emailClient = [Azure.Communication.Email.EmailClient]::new($conn)
-$subject = "Live Test Status Report"
-$body = "<html><body>$reportContent</body></html>"
-$from = "DoNotReply@4895130f-75dd-4732-969e-d89aaa072808.azurecomm.net"
-$to = "vidai@microsoft.com"
-
-Write-Host "Sending email..."
-$emailClient.SendAsync([Azure.WaitUntil]::Completed, $from, $to, $subject, $body).GetAwaiter().GetResult()
-Write-Host "Finished sending email."
+Send-CommunicationServiceEmail -To $EmailTo -Subject $emailSubject -Body $emailBody

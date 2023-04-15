@@ -184,6 +184,7 @@ stages:
         pwsh: true
         targetType: inline
         script: |
+          ./tools/TestFx/Utilities/CommonUtility.ps1
           Install-Module -Name Az.Accounts -Scope CurrentUser -Force
           Install-Module -Name Az.Communication -Scope CurrentUser -Force
 
@@ -203,4 +204,4 @@ stages:
         pwsh: true
         targetType: filePath
         filePath: ./tools/TestFx/Live/SendLiveTestReport.ps1
-        arguments: $(KustoServicePrincipalTenantId) $(KustoServicePrincipalId) $(KustoServicePrincipalSecret) $(KustoClusterName) $(KustoClusterRegion) $(LiveTestDatabaseName) $(LiveTestTableName) $(Build.BuildId)
+        arguments: $(KustoServicePrincipalTenantId) $(KustoServicePrincipalId) $(KustoServicePrincipalSecret) $(KustoClusterName) $(KustoClusterRegion) $(LiveTestDatabaseName) $(LiveTestTableName) $(Build.BuildId) $(CommunicationServiceName) $(CommunicationServiceResourceGroup) $(EmailFrom) $(EmailTo)
