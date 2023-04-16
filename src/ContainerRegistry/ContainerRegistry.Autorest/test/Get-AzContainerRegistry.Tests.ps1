@@ -16,18 +16,23 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistry'))
 
 Describe 'Get-AzContainerRegistry' {
     It 'List' {
-        {Get-AzContainerRegistry -SubscriptionId $env.SubscriptionId} | Should -Not -Throw
+        $List = Get-AzContainerRegistry -SubscriptionId $env.SubscriptionId
+        $List.count | Should -BeGreaterOrEqual 1
     }
 
     It 'Get' {
-        { Get-AzContainerRegistry -Name $env.rstr1 -ResourceGroupName $env.ResourceGroup } | Should -Not -Throw
+        $Obj = Get-AzContainerRegistry -Name $env.rstr1 -ResourceGroupName $env.ResourceGroup 
+        $Obj.Name | Should -Be $env.rstr1
     }
 
     It 'List1'{
-        { Get-AzContainerRegistry -ResourceGroupName $env.ResourceGroup  } | Should -Not -Throw
+        $List = Get-AzContainerRegistry -ResourceGroupName $env.ResourceGroup
+        $List.count | Should -BeGreaterOrEqual 1
     }
 
-    It 'GetViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'GetViaIdentity' {
+        $obj = Get-AzContainerRegistry -Name $env.rstr1 -ResourceGroupName $env.ResourceGroup
+        $res = Get-AzContainerRegistry -InputObject $Obj
+        $res.Name | Should -Be $env.rstr1
     }
 }

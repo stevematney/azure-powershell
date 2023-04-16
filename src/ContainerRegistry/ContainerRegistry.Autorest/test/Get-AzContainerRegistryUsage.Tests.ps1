@@ -15,7 +15,7 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryUsage'
 }
 
 Describe 'Get-AzContainerRegistryUsage' {
-    It 'List' -skip {
+    It 'List' {
         {Get-AzContainerRegistryUsage -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup } | Should -Not -Throw
     }
 }

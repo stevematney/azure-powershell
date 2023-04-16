@@ -16,10 +16,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Test-AzContainerRegistryWebho
 
 Describe 'Test-AzContainerRegistryWebhook' {
     It 'Ping' {
-        { Test-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -name $env.Webhook} | Should -Not -Throw
+        { Test-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -name $env.rstr1} | Should -Not -Throw
     }
 
-    It 'PingViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'PingViaIdentity' {
+        $obj = get-azContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -name $env.rstr1
+        {Test-AzContainerRegistryWebhook -Webhook $obj} | Should -Not -Throw
     }
 }

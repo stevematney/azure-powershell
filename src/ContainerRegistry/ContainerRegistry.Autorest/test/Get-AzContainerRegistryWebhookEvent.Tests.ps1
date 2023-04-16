@@ -16,6 +16,6 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryWebhoo
 
 Describe 'Get-AzContainerRegistryWebhookEvent' {
     It 'List' {
-        { Get-AzContainerRegistryWebhookEvent -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -WebhookName $env.Webhook} | Should -Not -Throw
+        { Get-AzContainerRegistryWebhookEvent -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -WebhookName $env.rstr1} | Should -Not -Throw
     }
 }

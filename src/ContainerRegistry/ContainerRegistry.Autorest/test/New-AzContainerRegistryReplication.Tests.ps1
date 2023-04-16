@@ -15,19 +15,12 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzContainerRegistryReplic
 }
 
 Describe 'New-AzContainerRegistryReplication' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        {New-AzContainerRegistryReplication -name  $env.rstr2 -RegistryName  $env.rstr1 -ResourceGroupName $env.ResourceGroup -Location westus2 } | Should -Not -Throw
     }
 
-    It 'Create' {
-        {  New-AzContainerRegistryReplication -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name $env.replication2 -Location "uk west"} | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateByRegistry' {
+        $obj = Get-AzContainerRegistry -Name $env.rstr1 -ResourceGroupName $env.ResourceGroup 
+        {New-AzContainerRegistryReplication -Name $env.rstr4 -Registry $obj -Location westus3  } | Should -Not -Throw
     }
 }

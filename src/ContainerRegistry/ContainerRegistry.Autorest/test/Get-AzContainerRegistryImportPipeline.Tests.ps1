@@ -15,12 +15,12 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryImport
 }
 
 Describe 'Get-AzContainerRegistryImportPipeline' {
-    It 'List' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'List'  {
+        {Get-AzContainerRegistryImportPipeline -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup} | Should -Not -Throw
     }
 
-    It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Get' {
+        {Get-AzContainerRegistryImportPipeline -name $env.rstr1 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup} | Should -Not -Throw
     }
 
     It 'GetViaIdentity' -skip {

@@ -20,8 +20,7 @@ Describe 'Update-AzContainerRegistryWebhook' {
     }
 
     It 'Update' {
-        New-AzContainerRegistryWebhook -RegistryName $rstr1 -ResourceGroupName $resourceGroup -Name $webhook3 -ServiceUri http://www.bing.com -Action Delete,Push -Location "east us" -Status Enabled -Scope "foo:*"
-        { Update-azContainerRegistryReplication -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name $env.replication3 -Uri "http://webhookuri.com" } | Should -Not -Throw
+        { Update-azContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name $env.rstr1 -Uri "http://webhookuri.com" } | Should -Not -Throw
     }
 
     It 'UpdateViaIdentityExpanded' -skip {

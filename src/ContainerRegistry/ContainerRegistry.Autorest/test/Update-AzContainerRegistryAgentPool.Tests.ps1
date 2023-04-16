@@ -15,16 +15,8 @@ if(($null -eq $TestName) -or ($TestName -contains 'Update-AzContainerRegistryAge
 }
 
 Describe 'Update-AzContainerRegistryAgentPool' {
-    It 'UpdateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Update' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'UpdateExpanded' { 
+        { Update-AzContainerRegistryAgentPool -name $env.rstr1 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup  -Count 2 } | Should -Not -Throw
     }
 
     It 'UpdateViaIdentity' -skip {

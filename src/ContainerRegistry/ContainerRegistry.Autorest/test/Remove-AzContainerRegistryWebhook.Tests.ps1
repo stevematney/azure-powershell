@@ -16,7 +16,8 @@ if(($null -eq $TestName) -or ($TestName -contains 'Remove-AzContainerRegistryWeb
 
 Describe 'Remove-AzContainerRegistryWebhook' {
     It 'Delete' {
-        {Remove-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.resourceGroup -Name $env.webhook2} | Should -Not -Throw
+
+        {Remove-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.resourceGroup -Name $env.rstr3} | Should -Not -Throw
     }
 
     It 'DeleteViaIdentity' -skip {

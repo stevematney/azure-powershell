@@ -15,19 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Update-AzContainerRegistrySco
 }
 
 Describe 'Update-AzContainerRegistryScopeMap' {
-    It 'UpdateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
+    It 'UpdateExpanded' {
+        {Update-AzContainerRegistryScopeMap  -Name $env.rstr1 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -Action "repositories/busybox/content/write"} | Should -Not -Throw
 
-    It 'Update' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
     }
-
     It 'UpdateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentity' -skip {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }

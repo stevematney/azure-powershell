@@ -15,19 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Update-AzContainerRegistryTok
 }
 
 Describe 'Update-AzContainerRegistryToken' {
-    It 'UpdateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Update' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'UpdateExpanded' {
+        {update-AzContainerRegistryToken  -Name $env.rstr4 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup  -Status 'disabled' } | Should -Not -Throw
     }
 
     It 'UpdateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentity' -skip {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }

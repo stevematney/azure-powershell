@@ -15,19 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Import-AzContainerRegistryIma
 }
 
 Describe 'Import-AzContainerRegistryImage' {
-    It 'ImportExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'ImportExpanded' {
+        {Import-AzContainerRegistryImage -SourceImage library/busybox:latest -ResourceGroupName $env.ResourceGroup -RegistryName $env.rstr1 -SourceRegistryUri docker.io -TargetTag busybox:latest } | Should -Not -Throw
     }
 
     It 'Import' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'ImportViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'ImportViaIdentity' -skip {
         { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }

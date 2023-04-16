@@ -15,19 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'Test-AzContainerRegistryNameA
 }
 
 Describe 'Test-AzContainerRegistryNameAvailability' {
-    It 'CheckExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
 
     It 'Check' {
         {Test-AzContainerRegistryNameAvailability -Name $env.rstr1 } | Should -Not -Throw
     }
 
-    It 'CheckViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CheckViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
 }

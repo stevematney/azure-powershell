@@ -15,19 +15,7 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzContainerRegistryScopeM
 }
 
 Describe 'New-AzContainerRegistryScopeMap' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Create' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        { New-AzContainerRegistryScopeMap -Name $env.rstr2 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -Action "repositories/busybox/content/read" } | Should -Not -Throw
     }
 }

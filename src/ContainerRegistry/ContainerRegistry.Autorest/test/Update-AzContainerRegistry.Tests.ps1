@@ -15,19 +15,11 @@ if(($null -eq $TestName) -or ($TestName -contains 'Update-AzContainerRegistry'))
 }
 
 Describe 'Update-AzContainerRegistry' {
-    It 'UpdateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Update' {
+    It 'UpdateExpanded' {
         $network1 = New-AzContainerRegistryIPRuleObject -IPAddressOrRange 192.159.0.31 -Action 'Forbidden'
         $network2 = New-AzContainerRegistryIPRuleObject -IPAddressOrRange 192.158.0.31 -Action 'Forbidden'
         $networkSet = @($network1, $network2)
-        { Update-AzContainerRegistry   -RegistryName $env.rstr1 -sku 'Premium' -ResourceGroupName $env.resourceGroup -NetworkRuleSetIPRule $networkSet} | Should -Not -Throw
-    }
-
-    It 'UpdateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+        { Update-AzContainerRegistry -RegistryName $env.rstr1 -sku 'Premium' -ResourceGroupName $env.resourceGroup -NetworkRuleSetIPRule $networkSet} | Should -Not -Throw
     }
 
     It 'UpdateViaIdentity' -skip {

@@ -15,8 +15,8 @@ if(($null -eq $TestName) -or ($TestName -contains 'Remove-AzContainerRegistrySco
 }
 
 Describe 'Remove-AzContainerRegistryScopeMap' {
-    It 'Delete' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Delete' {
+        { Remove-AzContainerRegistryScopeMap -Name $env.rstr3 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup} | Should -Not -Throw
     }
 
     It 'DeleteViaIdentity' -skip {

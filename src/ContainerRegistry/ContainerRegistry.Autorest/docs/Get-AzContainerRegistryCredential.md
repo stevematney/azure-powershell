@@ -31,15 +31,13 @@ Lists the login credentials for the specified container registry.
 
 ### Example 1: Get the login credentials for a container registry
 ```powershell
- $Cred = Get-AzContainerRegistryCredential -ResourceGroupName "MyResourceGroup" -RegistryName "RegistryExample"
- $Cred.Password
+ Get-AzContainerRegistryCredential -ResourceGroupName "MyResourceGroup" -RegistryName "RegistryExample"
 ```
 
 ```output
-Name      Value
-----      -----
-password  vLf7A2T5u/naoMbuvdwaRl8R90fRB8X+EV9qTctyMy+ACRCQOGqg
-password2 IfkrXWliroUg/FjVr5is+cY0XwF3yLFUonxCvh+VH++ACRCNkmdo
+Username            Password           Password2
+--------            --------           ---------
+RegistryExample     xxxxxxxxx          XXXXXXXXX
 ```
 
 This command gets the login credentials for the specified container registry.
@@ -165,7 +163,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.IRegistryListCredentialsResult
+### Microsoft.Azure.PowerShell.Cmdlets.ContainerRegistry.Models.Api202301Preview.PSContainerRegistryCredential
 
 ## NOTES
 

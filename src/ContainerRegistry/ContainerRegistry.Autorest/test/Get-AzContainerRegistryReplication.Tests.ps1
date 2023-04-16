@@ -20,7 +20,7 @@ Describe 'Get-AzContainerRegistryReplication' {
     }
 
     It 'Get' {
-        { get-AzContainerRegistryReplication -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name $env.replication } | Should -Not -Throw
+        { get-AzContainerRegistryReplication -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name $env.rstr1 } | Should -Not -Throw
     }
 
     It 'GetViaIdentity' -skip {

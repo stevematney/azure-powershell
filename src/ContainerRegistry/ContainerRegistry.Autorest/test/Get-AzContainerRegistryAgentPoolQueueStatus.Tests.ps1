@@ -15,11 +15,10 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryAgentP
 }
 
 Describe 'Get-AzContainerRegistryAgentPoolQueueStatus' {
-    It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Get' {
+        {Get-AzContainerRegistryAgentPoolQueueStatus -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -AgentPoolName $env.rstr1} | Should -Not -Throw
     }
 
     It 'GetViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }

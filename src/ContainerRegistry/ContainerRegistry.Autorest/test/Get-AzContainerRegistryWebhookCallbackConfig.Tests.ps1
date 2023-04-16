@@ -15,8 +15,8 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryWebhoo
 }
 
 Describe 'Get-AzContainerRegistryWebhookCallbackConfig' {
-    It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Get' {
+        { Get-AzContainerRegistryWebhookCallbackConfig -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -WebhookName $env.rstr1 } | Should -Not -Throw
     }
 
     It 'GetViaIdentity' -skip {

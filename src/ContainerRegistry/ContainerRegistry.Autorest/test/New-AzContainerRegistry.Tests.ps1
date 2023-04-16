@@ -15,19 +15,7 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzContainerRegistry'))
 }
 
 Describe 'New-AzContainerRegistry' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Create' {
-        { New-AzContainerRegistry -RegistryName $env.rstr2 -sku 'Basic' -ResourceGroupName $env.ResourceGroup -Location "westus"} | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        {New-AzContainerRegistry -RegistryName $env.rstr2 -sku 'Basic' -ResourceGroupName $env.ResourceGroup -Location "westus"} | Should -Not -Throw
     }
 }

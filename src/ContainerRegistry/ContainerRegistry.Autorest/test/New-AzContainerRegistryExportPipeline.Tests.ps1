@@ -15,19 +15,9 @@ if(($null -eq $TestName) -or ($TestName -contains 'New-AzContainerRegistryExport
 }
 
 Describe 'New-AzContainerRegistryExportPipeline' {
-    It 'CreateExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'Create' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'CreateViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'CreateExpanded' {
+        $keyVaultUri = "https://lnxtestkeyvault.vault.azure.net/secrets/test/de11705d609e48b6a2faf6facc30a9e0"
+        $StorageAccount = "https://acrteststorageaccount.blob.core.windows.net/test"
+        {New-AzContainerRegistryExportPipeline -name $env.rstr2 -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -IdentityType 'SystemAssigned' -TargetType AzureStorageBlobContainer -TargetUri $StorageAccount -TargetKeyVaultUri $keyVaultUri } | Should -Not -Throw
     }
 }

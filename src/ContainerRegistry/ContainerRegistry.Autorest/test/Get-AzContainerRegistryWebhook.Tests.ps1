@@ -20,7 +20,7 @@ Describe 'Get-AzContainerRegistryWebhook' {
     }
 
     It 'Get'  {
-        {get-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -name $env.Webhook} | Should -Not -Throw
+        {get-AzContainerRegistryWebhook -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -name $env.rstr1} | Should -Not -Throw
     }
 
     It 'GetViaIdentity' -skip {

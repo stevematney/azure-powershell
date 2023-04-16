@@ -95,6 +95,12 @@ directive:
     subject: (.*)CredentialSet
   hide: true
 - where:
+    subject: (.*)Task
+  hide: true
+- where:
+    subject: (.*)UploadUrl
+  hide: true
+- where:
     verb: Ping
   set: 
     verb: Test
@@ -272,11 +278,29 @@ directive:
         - OS
         - Count
         - ProvisioningState
+- where:
+    model-name: Token 
+  set:
+    format-table: 
+      properties:
+        - Name
+        - Status
+        - ProvisioningState
+        - Type
+        - ResourceGroupName
 
 # custom hide
 - where:
     verb: Get
-    subject: RegistryCredential|Replication|WebhookEvent|Webhook
+    subject: RegistryCredential|Replication
+  hide: true
+- where:
+    verb: Get
+    subject: (.*)WebhookEvent
+  hide: true
+- where:
+    verb: Get
+    subject: Webhook
   hide: true
 - where:
     verb: New

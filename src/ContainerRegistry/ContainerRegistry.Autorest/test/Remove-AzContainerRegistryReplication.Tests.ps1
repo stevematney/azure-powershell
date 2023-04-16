@@ -16,7 +16,7 @@ if(($null -eq $TestName) -or ($TestName -contains 'Remove-AzContainerRegistryRep
 
 Describe 'Remove-AzContainerRegistryReplication' {
     It 'Delete' {
-        {remove-azContainerRegistryReplication -RegistryName $env.rstr1 -ResourceGroupName  $env.resourceGroup -Name "eastus"} | Should -Not -Throw
+        {remove-azContainerRegistryReplication -Name $env.rstr3 -RegistryName $env.rstr1 -ResourceGroupName $env.resourceGroup} | Should -Not -Throw
     }
 
     It 'DeleteViaIdentity' -skip {

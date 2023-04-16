@@ -15,15 +15,19 @@ if(($null -eq $TestName) -or ($TestName -contains 'Get-AzContainerRegistryAgentP
 }
 
 Describe 'Get-AzContainerRegistryAgentPool' {
-    It 'List' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'List' {
+        $List = Get-AzContainerRegistryAgentPool -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup
+        $List.Count | Should -BeGreaterOrEqual 1
     }
 
-    It 'Get' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'Get' {
+        $Obj = Get-AzContainerRegistryAgentPool -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -Name $env.rstr1
+        $Obj.Name | Should -Be $env.rstr1
     }
 
-    It 'GetViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
+    It 'GetViaIdentity' {
+        $Obj = Get-AzContainerRegistryAgentPool -RegistryName $env.rstr1 -ResourceGroupName $env.ResourceGroup -Name $env.rstr1
+        $Res = Get-AzContainerRegistryAgentPool -InputObject $Obj
+        $Res.Name | Should -Be $env.rstr1
     }
 }
