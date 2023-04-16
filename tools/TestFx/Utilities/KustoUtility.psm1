@@ -46,7 +46,7 @@ function InitializeKustoPackages {
     New-Item -Path . -Name $kustoPackagesDirectoryName -ItemType Directory -Force
 
     $kustoPackages = @(
-        @{ PackageName = "Azure.Core"; PackageVersion = "1.25.0"; DllName = "Azure.Core.dll" },
+        @{ PackageName = "Azure.Core"; PackageVersion = "1.30.0"; DllName = "Azure.Core.dll" },
         @{ PackageName = "Azure.Data.Tables"; PackageVersion = "12.6.1"; DllName = "Azure.Data.Tables.dll" },
         @{ PackageName = "Azure.Storage.Blobs"; PackageVersion = "12.13.0"; DllName = "Azure.Storage.Blobs.dll" },
         @{ PackageName = "Azure.Storage.Common"; PackageVersion = "12.12.0"; DllName = "Azure.Storage.Common.dll" },
@@ -66,7 +66,7 @@ function InitializeKustoPackages {
         $packageVersion = $_["PackageVersion"]
         $packageDll = $_["DllName"]
         Install-Package -Name $packageName -RequiredVersion $packageVersion -Source "https://www.nuget.org/api/v2" -Destination $kustoPackagesDirectory -SkipDependencies -ExcludeVersion -Force
-        Add-Type -LiteralPath (Join-Path -Path $kustoPackagesDirectory -ChildPath $packageName | Join-Path -ChildPath "lib" | Join-Path -ChildPath "netstandard2.0" | Join-Path -ChildPath $packageDll)
+        Add-Type -LiteralPath (Join-Path -Path $kustoPackagesDirectory -ChildPath $packageName | Join-Path -ChildPath "lib" | Join-Path -ChildPath "netstandard2.0" | Join-Path -ChildPath $packageDll) -ErrorAction SilentlyContinue
     }
 }
 
