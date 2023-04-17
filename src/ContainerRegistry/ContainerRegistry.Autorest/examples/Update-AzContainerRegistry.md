@@ -1,6 +1,6 @@
 ### Example 1: Enable admin user for a specified container registry
 ```powershell
-Update-AzContainerRegistry -ResourceGroupName "MyResourceGroup" -Name "RegistryExample" -AdminUserEnabled
+Update-AzContainerRegistry -ResourceGroupName "MyResourceGroup" -Name "RegistryExample" -EnableAdminUser
 ```
 
 ```output
