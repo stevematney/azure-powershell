@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AzContainerRegistry
 
 ## SYNOPSIS
-
+Gets the properties of the specified container registry.
 
 ## SYNTAX
 
@@ -37,7 +37,7 @@ Get-AzContainerRegistry -ResourceGroupName <String> [-IncludeDetail] [-Subscript
 ```
 
 ## DESCRIPTION
-
+Gets the properties of the specified container registry.
 
 ## EXAMPLES
 
@@ -85,7 +85,7 @@ This command gets all the container registries in the subscription.
 ## PARAMETERS
 
 ### -DefaultProfile
-
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -100,7 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeDetail
-
+Usage of an azure container registry.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -115,6 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -InputObject
+Identity Parameter
 To construct, see NOTES section for INPUTOBJECT properties and create a hash table.
 
 ```yaml
@@ -130,7 +131,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-
+The name of the container registry.
 
 ```yaml
 Type: System.String
@@ -145,7 +146,8 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-
+The name of the resource group.
+The name is case insensitive.
 
 ```yaml
 Type: System.String
@@ -160,7 +162,8 @@ Accept wildcard characters: False
 ```
 
 ### -SubscriptionId
-
+The ID of the target subscription.
+The value must be an UUID.
 
 ```yaml
 Type: System.String[]
@@ -194,7 +197,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-`INPUTOBJECT <IContainerRegistryIdentity>`: 
+`INPUTOBJECT <IContainerRegistryIdentity>`: Identity Parameter
   - `[AgentPoolName <String>]`: The name of the agent pool.
   - `[CacheRuleName <String>]`: The name of the cache rule.
   - `[ConnectedRegistryName <String>]`: The name of the connected registry.

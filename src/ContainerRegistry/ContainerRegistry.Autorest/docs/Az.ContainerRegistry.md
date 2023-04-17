@@ -12,7 +12,7 @@ Microsoft Azure PowerShell: ContainerRegistry cmdlets
 
 ## Az.ContainerRegistry Cmdlets
 ### [Get-AzContainerRegistry](Get-AzContainerRegistry.md)
-
+Gets the properties of the specified container registry.
 
 ### [Get-AzContainerRegistryAgentPool](Get-AzContainerRegistryAgentPool.md)
 Gets the detailed information for a given agent pool.
