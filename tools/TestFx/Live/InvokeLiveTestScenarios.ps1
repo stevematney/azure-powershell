@@ -54,9 +54,9 @@ $liveJobs = $liveScenarios | ForEach-Object {
         Write-Host "Live test script : $LiveScenarioScript"
         $moduleName = [regex]::match($LiveScenarioScript, "[\\|\/]src[\\|\/](?<ModuleName>[a-zA-Z]+)[\\|\/]").Groups["ModuleName"].Value
         Import-Module "./tools/TestFx/Assert.ps1" -Force
-        Import-Module "./tools/TestFx/Live/LiveTestUtility.psd1" -ArgumentList $moduleName, $RunPlatform, $DataLocation -Force
+        Import-Module "./tools/TestFx/Live/LiveTestUtility.psd1" -ArgumentList $moduleName, $RunPlatform, $PowerShellLatest, $DataLocation -Force
         . $LiveScenarioScript
-    }).AddParameter("RunPlatform", $RunPlatform).AddParameter("RepoLocation", $RepoLocation).AddParameter("DataLocation", $DataLocation).AddParameter("LiveScenarioScript", $_) | Out-Null
+    }).AddParameter("RunPlatform", $RunPlatform).AddParameter("PowerShellLatest", $PowerShellLatest).AddParameter("DataLocation", $DataLocation).AddParameter("LiveScenarioScript", $_) | Out-Null
 
     [PSCustomObject]@{
         Id          = $ps.InstanceId
@@ -69,11 +69,11 @@ $liveJobs = $liveScenarios | ForEach-Object {
 
 $totalJobs = $liveJobs
 while ($totalJobs.Count -gt 0) {
-    Start-Sleep -Seconds 5
+    Start-Sleep -Seconds 10
     $runningJobs = @()
     $completedJobs = @()
     foreach ($job in $totalJobs) {
-        if ($job.State -match "Completed|Failed|Stopped|Suspended|Disconnected") {
+        if ($job.State -match "Completed|Failed|Stopped|Suspended|Disconnected" -and $job.AsyncHandle.IsCompleted) {
             $completedJobs += $job
         }
         else {
@@ -84,19 +84,18 @@ while ($totalJobs.Count -gt 0) {
     if ($completedJobs.Count -gt 0) {
         $completedJobs | ForEach-Object {
             if ($null -ne $_.Instance) {
-                $result = $_.Instance.EndInvoke($_.AsyncHandle)
-                $result
-                $_.Instance.Streams | Select-Object -Property @{ Name = "FullOutput"; Expression = { $_.Information, $_.Warning, $_.Error, $_.Debug } } | Select-Object -ExpandProperty FullOutput
+                $_.Instance.EndInvoke($_.AsyncHandle)
+                $_.Instance.Streams | Select-Object -Property @{ Name = "FullOutput"; Expression = { $_.Information, $_.Verbose, $_.Debug, $_.Warning, $_.Error } } | Select-Object -ExpandProperty FullOutput
                 $_.Instance.Dispose()
             }
         }
     }
 
+    Write-Host "Total jobs: $($totalJobs.Count)"
+    Write-Host "Running jobs: $($runningJobs.Count)"
+    Write-Host "Completed jobs: $($completedJobs.Count)"
+
     $totalJobs = $runningJobs
-}
-
-$liveJobs | ForEach-Object {
-
 }
 
 $rsp.Dispose()
