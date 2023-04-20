@@ -54,7 +54,7 @@ require:
 input-file:
   - https://github.com/Azure/azure-rest-api-specs/blob/66174681c09b101de03fd35399080cfbccc93e8f/specification/containerregistry/resource-manager/Microsoft.ContainerRegistry/preview/2023-01-01-preview/containerregistry.json
   - https://github.com/Azure/azure-rest-api-specs/blob/66174681c09b101de03fd35399080cfbccc93e8f/specification/containerregistry/resource-manager/Microsoft.ContainerRegistry/preview/2019-06-01-preview/containerregistry_build.json
-module-version: 0.1.0
+module-version: 4.0.0
 title: ContainerRegistry
 subject-prefix: $(service-name)
 
